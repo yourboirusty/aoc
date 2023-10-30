@@ -4,13 +4,16 @@ use core::fmt::Debug;
 pub struct Day {
     pack_name: String,
     day: u8,
-    part1: Box<dyn Solveable + Sync>,
-    part2: Box<dyn Solveable + Sync>,
+    parts: Vec<Box<dyn Solveable + Sync>>,
 }
 
 impl Day {
-    pub fn new(pack_name: String, day: u8, part1: Box<dyn Solveable + Sync>, part2: Box<dyn Solveable + Sync>) -> Day {
-        Day { pack_name, day, part1, part2 }
+    pub fn new(pack_name: String, day: u8, parts: Vec<Box<dyn Solveable + Sync>>) -> Day {
+        Day {
+            pack_name,
+            day,
+            parts,
+        }
     }
 }
 
@@ -24,7 +27,10 @@ impl Debug for dyn Solveable + Sync {
     }
 }
 
-fn timed_solve(solve: &Box<dyn Solveable + Sync>, lines: &Vec<String>) -> (String, std::time::Duration) {
+fn timed_solve(
+    solve: &Box<dyn Solveable + Sync>,
+    lines: &Vec<String>,
+) -> (String, std::time::Duration) {
     let now = std::time::Instant::now();
     let solution = solve.solve(lines);
     let elapsed = now.elapsed();
@@ -32,23 +38,24 @@ fn timed_solve(solve: &Box<dyn Solveable + Sync>, lines: &Vec<String>) -> (Strin
     (solution, elapsed)
 }
 
-
-impl Solveable for Day {
-    fn solve(&self, lines: &Vec<String>) -> String {
-        let (p1_ans, p1_time) = timed_solve(&self.part1, &lines);
-        println!("Part 1: {}, took {} s", p1_ans, p1_time.as_secs_f32());
-        let (p2_ans, p2_time) = timed_solve(&self.part2, &lines);
-        println!("Part 2: {}, took {} s", p2_ans, p2_time.as_secs_f32());
-
-        String::new()
+impl Day {
+    pub fn solve(&self) {
+        let lines = self.read_lines();
+        self.parts.iter().enumerate().for_each(|(idx, part)| {
+            let (ans, time) = timed_solve(part, &lines);
+            println!("Part {}: {}, took {} s", idx, ans, time.as_secs_f32());
+        });
+    }
+    fn read_lines(&self) -> Vec<String> {
+        let path = format!("./input/{}/day{}.txt", &self.pack_name, &self.day);
+        std::fs::read_to_string(path)
+            .unwrap_or_else(|_| {
+                println!("File not found, defaulting to empty");
+                String::new()
+            })
+            .lines()
+            .map(|s| s.to_string())
+            .collect()
     }
 }
 
-pub fn read_lines_for(day: Day) -> Vec<String> {
-    let path = format!("./input/{}/day{}.txt", day.pack_name, day.day);
-    std::fs::read_to_string(path)
-        .expect("Something went wrong reading the file")
-        .lines()
-        .map(|s| s.to_string())
-        .collect()
-}

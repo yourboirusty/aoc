@@ -1,12 +1,12 @@
 use std::collections::HashMap;
 
-use crate::day::Solveable;
+use crate::day::Day;
 
 /// Denotes a single day pack (e.g. a single year)
 #[derive(Debug)]
 pub struct DayPack {
     pub name: String,
-    pub days: HashMap<u8, Box<dyn Solveable + Sync>>,
+    pub days: HashMap<u8, Day>,
 }
 
 mod aoc23;
