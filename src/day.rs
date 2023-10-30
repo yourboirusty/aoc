@@ -43,7 +43,7 @@ impl Day {
         let lines = self.read_lines();
         self.parts.iter().enumerate().for_each(|(idx, part)| {
             let (ans, time) = timed_solve(part, &lines);
-            println!("Part {}: {}, took {} s", idx, ans, time.as_secs_f32());
+            println!("Part {}: {}, took {} s", idx + 1, ans, time.as_secs_f32());
         });
     }
     fn read_lines(&self) -> Vec<String> {

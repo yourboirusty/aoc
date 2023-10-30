@@ -9,5 +9,6 @@ pub struct DayPack {
     pub days: HashMap<u8, Day>,
 }
 
-mod aoc23;
 pub mod all_packs;
+mod aoc23;
+mod euler;
