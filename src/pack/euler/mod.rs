@@ -19,10 +19,17 @@ mod day016;
 mod day017;
 mod day018;
 mod day019;
+mod day020;
+mod day021;
+mod day022;
+mod day023;
+mod day024;
+mod day025;
 mod day067;
 mod shared;
 
 get_pack_fn!(
     "euler", day001, day002, day003, day004, day005, day006, day007, day008, day009, day010,
-    day011, day012, day013, day014, day015, day016, day017, day018, day019, day067
+    day011, day012, day013, day014, day015, day016, day017, day018, day019, day020, day021, day022,
+    day023, day024, day025, day067
 );
