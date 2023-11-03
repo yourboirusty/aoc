@@ -2,18 +2,13 @@ use core::fmt::Debug;
 
 #[derive(Debug)]
 pub struct Day {
-    pack_name: String,
-    day: u8,
+    name: String,
     parts: Vec<Box<dyn Solveable + Sync>>,
 }
 
 impl Day {
-    pub fn new(pack_name: String, day: u8, parts: Vec<Box<dyn Solveable + Sync>>) -> Day {
-        Day {
-            pack_name,
-            day,
-            parts,
-        }
+    pub fn new(name: String, parts: Vec<Box<dyn Solveable + Sync>>) -> Day {
+        Day { name, parts }
     }
 }
 
@@ -39,23 +34,11 @@ fn timed_solve(
 }
 
 impl Day {
-    pub fn solve(&self) {
-        let lines = self.read_lines();
+    pub fn solve(&self, lines_factory: &dyn Fn(&String) -> Vec<String>) {
+        let lines = lines_factory(&self.name);
         self.parts.iter().enumerate().for_each(|(idx, part)| {
             let (ans, time) = timed_solve(part, &lines);
             println!("Part {}: {}, took {} s", idx + 1, ans, time.as_secs_f32());
         });
     }
-    fn read_lines(&self) -> Vec<String> {
-        let path = format!("./input/{}/day{}.txt", &self.pack_name, &self.day);
-        std::fs::read_to_string(path)
-            .unwrap_or_else(|_| {
-                println!("File not found, defaulting to empty");
-                String::new()
-            })
-            .lines()
-            .map(|s| s.to_string())
-            .collect()
-    }
 }
-

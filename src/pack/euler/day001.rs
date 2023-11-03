@@ -11,11 +11,4 @@ impl Solveable for Part1 {
     }
 }
 
-
-pub fn get_day(pack_name: String) -> Day {
-    Day::new(
-        pack_name,
-        1,
-        vec![Box::new(Part1)],
-    )
-}
+get_day_fn!(Part1);

@@ -5,7 +5,7 @@ struct Part1;
 impl Solveable for Part1 {
     fn solve(&self, _lines: &Vec<String>) -> String {
         for a in 1..1000 {
-            for b in a+1..1000 {
+            for b in a + 1..1000 {
                 let c = 1000 - a - b;
                 if c <= b {
                     break;
@@ -19,6 +19,4 @@ impl Solveable for Part1 {
     }
 }
 
-pub fn get_day(pack_name: String) -> Day {
-    Day::new(pack_name, 9, vec![Box::new(Part1)])
-}
+get_day_fn!(Part1);

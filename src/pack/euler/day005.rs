@@ -1,7 +1,7 @@
 use crate::day::Day;
 use crate::day::Solveable;
 
-fn gcd (a: u64, b: u64) -> u64 {
+fn gcd(a: u64, b: u64) -> u64 {
     if b == 0 {
         a
     } else {
@@ -20,6 +20,4 @@ impl Solveable for Part1 {
     }
 }
 
-pub fn get_day(pack_name: String) -> Day {
-    Day::new(pack_name, 5, vec![Box::new(Part1)])
-}
+get_day_fn!(Part1);

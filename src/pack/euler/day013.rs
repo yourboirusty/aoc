@@ -27,10 +27,7 @@ impl Solveable for Part1 {
         result.reverse();
 
         result[0..10].iter().map(|n| n.to_string()).collect()
-
     }
 }
 
-pub fn get_day(pack_name: String) -> Day {
-    Day::new(pack_name, 13, vec![Box::new(Part1)])
-}
+get_day_fn!(Part1);

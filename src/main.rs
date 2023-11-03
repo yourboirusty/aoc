@@ -9,7 +9,7 @@ struct Args {
     #[arg(short, long)]
     pack_name: String,
     #[arg(short, long)]
-    day: u8,
+    day: String,
 }
 
 fn main() {
@@ -17,7 +17,7 @@ fn main() {
     let packs = get_packs();
     if let Some(pack) = packs.get(&args.pack_name) {
         if let Some(day) = pack.days.get(&args.day) {
-            day.solve();
+            day.solve(&|day_name| pack.read_lines(day_name));
         } else {
             println!("Day {} not found in pack {}", args.day, args.pack_name);
         }
