@@ -17,6 +17,9 @@ mod day13;
 mod day14;
 mod day15;
 mod day16;
+mod day17;
+mod day18;
+mod day67;
 
 pub fn get_pack() -> DayPack {
     let name = "euler".to_string();
@@ -39,6 +42,9 @@ pub fn get_pack() -> DayPack {
             (u8::from(14), day14::get_day(name.clone())),
             (u8::from(15), day15::get_day(name.clone())),
             (u8::from(16), day16::get_day(name.clone())),
+            (u8::from(17), day17::get_day(name.clone())),
+            (u8::from(18), day18::get_day(name.clone())),
+            (u8::from(67), day67::get_day(name.clone())),
         ]),
     }
 }
