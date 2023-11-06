@@ -37,7 +37,11 @@ struct Part1;
 impl Solveable for Part1 {
     fn solve(&self, _lines: &Vec<String>) -> String {
         let spiral = get_spiral(1001);
-        ((0..1001).map(|i| spiral[i][i] + spiral[i][1000 - i]).sum::<usize>() - 1).to_string()
+        ((0..1001)
+            .map(|i| spiral[i][i] + spiral[i][1000 - i])
+            .sum::<usize>()
+            - 1)
+        .to_string()
     }
 }
 

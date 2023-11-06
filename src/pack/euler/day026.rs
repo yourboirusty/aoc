@@ -24,12 +24,14 @@ fn get_cycle_length(n: u64) -> u64 {
 struct Part1;
 impl Solveable for Part1 {
     fn solve(&self, _lines: &Vec<String>) -> String {
-        (1..1000).max_by_key(|n| get_cycle_length(*n)).unwrap().to_string()
+        (1..1000)
+            .max_by_key(|n| get_cycle_length(*n))
+            .unwrap()
+            .to_string()
     }
 }
 
 get_day_fn!(Part1);
-
 
 #[test]
 fn test_get_cycle_length() {

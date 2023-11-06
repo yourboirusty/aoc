@@ -25,7 +25,7 @@ impl Solveable for Part1 {
     fn solve(&self, _lines: &Vec<String>) -> String {
         let primes = get_primes_under(28124);
         let abundant_numbers = (1..28124)
-            .filter(|&n| n + n < sum_of_divisors(n, &primes) )
+            .filter(|&n| n + n < sum_of_divisors(n, &primes))
             .collect::<HashSet<u64>>();
         (1..28124)
             .filter(|&n| !can_be_written(n, &abundant_numbers))
@@ -36,12 +36,11 @@ impl Solveable for Part1 {
 
 get_day_fn!(Part1);
 
-
 #[test]
 fn test_can_be_written() {
     let primes = get_primes_under(28124);
     let abundant_numbers = (1..28124)
-        .filter(|&n| n + n < sum_of_divisors(n, &primes) )
+        .filter(|&n| n + n < sum_of_divisors(n, &primes))
         .collect::<HashSet<u64>>();
     assert!(can_be_written(24, &abundant_numbers));
     assert!(!can_be_written(25, &abundant_numbers));
