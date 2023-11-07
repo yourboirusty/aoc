@@ -1,4 +1,3 @@
-
 use memoize::memoize;
 
 use crate::day::Day;
@@ -13,11 +12,7 @@ fn find_ways_to_sum(sum: usize, accum: u64, denominations: Vec<usize>) -> u64 {
     let mut sum = sum;
     ways += find_ways_to_sum(sum, accum, denominations[1..].to_vec());
     while sum >= denominations[0] {
-        ways += find_ways_to_sum(
-            sum - denominations[0],
-            accum,
-            denominations[1..].to_vec(),
-        );
+        ways += find_ways_to_sum(sum - denominations[0], accum, denominations[1..].to_vec());
         sum -= denominations[0];
     }
     ways
@@ -31,4 +26,3 @@ impl Solveable for Part1 {
 }
 
 get_day_fn!(Part1);
-
