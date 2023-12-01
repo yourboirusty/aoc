@@ -44,4 +44,3 @@ macro_rules! get_day_fn {
 
 pub mod all_packs;
 mod aoc23;
-mod euler;
