@@ -6,7 +6,7 @@ mod pack;
 
 #[derive(Parser, Debug)]
 struct Args {
-    #[arg(short, long)]
+    #[arg(short, long, default_value_t = String::from("aoc23"))]
     pack_name: String,
     #[arg(short, long)]
     day: String,
