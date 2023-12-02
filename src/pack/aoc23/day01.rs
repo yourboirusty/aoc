@@ -1,4 +1,4 @@
-use std::{char, collections::HashMap, iter::Rev, str::Chars};
+use std::str::Chars;
 
 use crate::day::{Day, Solveable};
 
@@ -32,36 +32,6 @@ impl Solveable for Part1 {
             .count(); //Consume iterator
 
         solution.to_string()
-    }
-}
-fn has_back(value: i32) -> bool {
-    value % 10 != 0
-}
-
-#[test]
-fn back_detected() {
-    for no_back_val in [0, 10, 20, 30, 40] {
-        assert!(!has_back(no_back_val));
-    }
-    for back_val in [1, 11, 25] {
-        assert!(has_back(back_val));
-    }
-}
-
-fn has_front(value: i32) -> bool {
-    if value == 0 {
-        return false;
-    }
-    (value / 10) > 0
-}
-
-#[test]
-fn front_detected() {
-    for no_front_val in [0, 1, 2, 3, 9] {
-        assert!(!has_front(no_front_val));
-    }
-    for front_val in [10, 30, 70] {
-        assert!(has_front(front_val));
     }
 }
 
@@ -102,15 +72,6 @@ fn process_front(char_iter: &mut Chars<'_>) -> u32 {
         }
     }
     panic!("No results found! Irrecoverable blunder!");
-}
-
-fn check_for_multiple(char_iter: &mut Chars<'_>, words: &[&str]) -> Option<u32> {
-    static mut CURRENT_WORDS: Vec<String> = Vec::new();
-    let two_check = check_for(char_iter, "two", 2);
-    match two_check {
-        Some(x) => Some(x),
-        None => check_for(char_iter, "three", 3),
-    }
 }
 
 fn check_for(char_iter: &mut Chars<'_>, check_word: &'static str, value: u32) -> Option<u32> {
