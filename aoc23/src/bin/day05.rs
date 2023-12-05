@@ -5,50 +5,6 @@ use base::{Day, Solveable};
 #[macro_use]
 extern crate log;
 
-#[derive(Debug, Clone, Copy)]
-enum AlmanacItemType {
-    Seed,
-    Soil,
-    Water,
-    Light,
-    Temperature,
-    Humidity,
-    Location,
-    Fertilizer,
-}
-
-impl ToString for AlmanacItemType {
-    fn to_string(&self) -> String {
-        match self {
-            AlmanacItemType::Seed => "seed".to_string(),
-            AlmanacItemType::Light => "light".to_string(),
-            AlmanacItemType::Water => "water".to_string(),
-            AlmanacItemType::Soil => "soil".to_string(),
-            AlmanacItemType::Temperature => "temperature".to_string(),
-            AlmanacItemType::Humidity => "humidity".to_string(),
-            AlmanacItemType::Location => "location".to_string(),
-            AlmanacItemType::Fertilizer => "fertilizer".to_string(),
-        }
-    }
-}
-
-impl FromStr for AlmanacItemType {
-    type Err = &'static str;
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s.to_lowercase().as_str() {
-            "soil" => Ok(AlmanacItemType::Soil),
-            "water" => Ok(AlmanacItemType::Water),
-            "seed" => Ok(AlmanacItemType::Seed),
-            "light" => Ok(AlmanacItemType::Light),
-            "temperature" => Ok(AlmanacItemType::Temperature),
-            "humidity" => Ok(AlmanacItemType::Humidity),
-            "location" => Ok(AlmanacItemType::Location),
-            "fertilizer" => Ok(AlmanacItemType::Fertilizer),
-            _ => Err("Not parsable"),
-        }
-    }
-}
-
 #[derive(Debug, Clone)]
 struct AlmanacMapping {
     source_start: u32,
