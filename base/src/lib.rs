@@ -16,7 +16,7 @@ macro_rules! main_day_fn {
         extern crate pretty_env_logger;
 
         fn main() {
-            pretty_env_logger::init();
+            pretty_env_logger::init_timed();
             let file_str = file!().to_string();
             let day_name = file_str
                 .rsplit_once('/')
