@@ -1,7 +1,6 @@
 use std::str::FromStr;
 
-use crate::day::{Day, Solveable};
-
+use base::main_day_fn;
 struct Game {
     id: u32,
     max_blue: u32,
@@ -117,4 +116,4 @@ impl Solveable for Part2 {
         score.to_string()
     }
 }
-get_day_fn!(Part1, Part2);
+main_day_fn!(Part1, Part2);

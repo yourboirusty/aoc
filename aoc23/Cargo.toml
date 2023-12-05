@@ -9,3 +9,4 @@ edition = "2021"
 base = { path = "../base" }
 log.workspace = true
 pretty_env_logger.workspace = true
+regex.workspace = true

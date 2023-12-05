@@ -1,9 +1,4 @@
-use std::str::FromStr;
-
-use base::{Day, Solveable};
-
-#[macro_use]
-extern crate log;
+use base::main_day_fn;
 
 #[derive(Debug, Clone)]
 struct AlmanacMapping {
@@ -155,19 +150,5 @@ impl Solveable for Part2 {
         seeds.iter().min().unwrap().to_string()
     }
 }
-fn main() {
-    pretty_env_logger::init_timed();
-    let file_str = file!().to_string();
-    let day_name = file_str
-        .rsplit_once('/')
-        .unwrap()
-        .1
-        .rsplit_once('.')
-        .unwrap()
-        .0;
-    let root_folder = file_str.rsplit_once("src").unwrap().0;
-    let path = format!("{root_folder}input/{day_name}.txt");
-    let day_obj = Day::new(day_name.to_string(), vec![Box::new(Part1), Box::new(Part2)]);
 
-    day_obj.solve_standalone(&path);
-}
+main_day_fn!(Part1, Part2);
