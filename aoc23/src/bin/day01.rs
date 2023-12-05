@@ -1,6 +1,6 @@
 use std::str::Chars;
 
-use crate::day::{Day, Solveable};
+use base::main_day_fn;
 
 struct Part1;
 impl Solveable for Part1 {
@@ -147,4 +147,4 @@ impl Solveable for Part2 {
     }
 }
 
-get_day_fn!(Part1, Part2);
+main_day_fn!(Part1, Part2);

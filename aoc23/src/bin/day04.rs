@@ -1,12 +1,7 @@
 use std::{collections::HashSet, str::FromStr};
 
-use base::{Day, Solveable};
+use base::main_day_fn;
 use regex::{Error, Regex};
-
-#[macro_use]
-extern crate log;
-
-extern crate pretty_env_logger;
 
 #[derive(Clone, Copy, Debug)]
 struct Card {
@@ -99,20 +94,4 @@ impl Solveable for Part2 {
         value_sum.to_string()
     }
 }
-
-fn main() {
-    pretty_env_logger::init();
-    let file_str = file!().to_string();
-    let day_name = file_str
-        .rsplit_once('/')
-        .unwrap()
-        .1
-        .rsplit_once('.')
-        .unwrap()
-        .0;
-    let root_folder = file_str.rsplit_once("src").unwrap().0;
-    let path = format!("{root_folder}input/{day_name}.txt");
-
-    let day_obj = Day::new(day_name.to_string(), vec![Box::new(Part1), Box::new(Part2)]);
-    day_obj.solve_standalone(&path);
-}
+main_day_fn!(Part1, Part2);
