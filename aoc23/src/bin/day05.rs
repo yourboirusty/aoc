@@ -133,7 +133,7 @@ impl Solveable for Part2 {
         let (mappings, seed_ranges) = parse_file(lines);
 
         info!("Generating seed ranges");
-        let seeds: Vec<Range<usize>> = seed_ranges
+        let mut seeds: Vec<Range<usize>> = seed_ranges
             .chunks(2)
             .map(|chunk| {
                 let range_start = chunk[0];
@@ -143,9 +143,9 @@ impl Solveable for Part2 {
             .collect();
         info!("Starting to process {} seeds", seeds.len());
         let results: Vec<usize> = seeds
-            .iter()
+            .iter_mut()
             .flat_map(|seed_range| {
-                seed_range.to_owned().map(|seed| {
+                seed_range.map(|seed| {
                     debug!("Running seed {seed}");
                     let mut final_seed = seed.to_owned();
                     mappings.iter().for_each(|mapping_set| {
