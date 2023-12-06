@@ -58,6 +58,7 @@ impl AlmanacMapping {
             })
         }
 
+        // almanac_mappings.sort_by_key(|map| map.source_start + map.range);
         debug!("{source_str} to {destination_str} {:?}", almanac_mappings);
         almanac_mappings
     }
@@ -132,7 +133,6 @@ impl Solveable for Part2 {
     fn solve(&self, lines: &[String]) -> String {
         let (mappings, seed_ranges) = parse_file(lines);
 
-        info!("Generating seed ranges");
         let mut seeds: Vec<Range<usize>> = seed_ranges
             .chunks(2)
             .map(|chunk| {
@@ -141,7 +141,7 @@ impl Solveable for Part2 {
                 range_start..range_start + range
             })
             .collect();
-        info!("Starting to process {} seeds", seeds.len());
+
         let results: Vec<usize> = seeds
             .iter_mut()
             .flat_map(|seed_range| {
@@ -149,23 +149,24 @@ impl Solveable for Part2 {
                     debug!("Running seed {seed}");
                     let mut final_seed = seed.to_owned();
                     mappings.iter().for_each(|mapping_set| {
-                        debug!("Mapping for {}", mapping_set[0].destination_str);
-                        if let Ok(target_mapping) = mapping_set.binary_search_by(|map| {
-                            if final_seed < map.source_start {
-                                return Ordering::Less;
-                            };
-                            if final_seed >= map.source_start
-                                && final_seed - map.source_start <= map.range
-                            {
-                                return Ordering::Equal;
-                            };
-                            Ordering::Greater
-                        }) {
-                            final_seed =
-                                mapping_set[target_mapping].transform(&final_seed).unwrap();
-                        };
+                        mapping_set
+                            .iter()
+                            .take_while(|map| {
+                                trace!("{:?}", map);
+                                if final_seed < map.source_start {
+                                    trace!("{final_seed} < {}", map.source_start);
+                                    return true;
+                                };
+                                if let Some(new_seed) = map.transform(&final_seed) {
+                                    trace!("{final_seed} => {new_seed}");
+                                    final_seed = new_seed;
+                                    return false;
+                                };
+                                true
+                            })
+                            .count();
+                        debug!("Final seed {final_seed}");
                     });
-                    debug!("Final seed {final_seed}");
                     final_seed
                 })
             })
